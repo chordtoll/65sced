@@ -519,8 +519,8 @@ rot=0
 instr=""
 
 def occupied(sq):
-  for x in [sq[0],sq[0]-1]:
-    for y in [sq[1],sq[1]-1]:
+  for x in [sq[0],sq[0]]:
+    for y in [sq[1],sq[1]]:
       if (x,y) in tiles:
         return True
   return False
@@ -628,16 +628,20 @@ def input_complete(inp,mode):
       nid=int(inp)
     except:
       nid=decodePLA.findnode(inp)
-    w=Wire(nid,w1sq,w2sq)
-    wires.add(w)
-    popnp(0,0,w)
-    span=w.span()
-    print "Span",span
-    if span is None:
-      for i in tiles.layers:
-        i.dirty=True
+    if w1sq==w2sq:
+      popsnp(w1sq[0],w1sq[1],nid)
+      tiles.layerat(w1sq[0],w1sq[1]).dirty=True
     else:
-      tiles.layerid(span).dirty=True
+      w=Wire(nid,w1sq,w2sq)
+      wires.add(w)
+      popnp(0,0,w)
+      span=w.span()
+      print "Span",span
+      if span is None:
+        for i in tiles.layers:
+          i.dirty=True
+      else:
+        tiles.layerid(span).dirty=True
     #save()
     w1sq=None
     w2sq=None
@@ -768,6 +772,9 @@ while running:
           else:
             mode=MODE_wnid
             continue
+        if w1sq==w2sq:
+          mode=MODE_wnid
+          continue
         w=Wire(wnod,w1sq,w2sq)
         wires.add(w)
         popnp(0,0,w)
@@ -809,6 +816,8 @@ while running:
             dx,dy=sdx*int(dt/math.sqrt(2)+0.5),sdy*int(dt/math.sqrt(2)+0.5)
 
           w2sq=(w1sq[0]+dx,w1sq[1]+dy)
+        else:
+          w2sq=w1sq
 
     screen.fill((0,0,0))
     render()
