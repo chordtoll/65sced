@@ -427,15 +427,15 @@ def save():
       print i.id,
       with atomic_write(os.path.join('layers','%s.sch'%i.name), overwrite=True) as f:
         f.write('#%s,%d,%d,%d,%d,%d            %%name:%s, @(%d,%d) %dx%d #%d\n'%(i.name,i.x1,i.y1,i.x2-i.x1,i.y2-i.y1,i.id,i.name,i.x1,i.y1,i.x2-i.x1,i.y2-i.y1,i.id))
-        for t in i.dict:
+        for t in sorted(i.dict.keys()):
           f.write('T%i,%i:%s\n'%(t[0],t[1],i.dict[t].dump()))
-        for w in wires:
+        for w in sorted(list(wires),key=lambda x:x.dump()):
           if w.span()==i.id:
             f.write('W%s\n'%(w.dump()))  
       i.dirty=False
   print "wires"
   with atomic_write('wires.sch', overwrite=True) as f:
-    for i in wires:
+    for i in sorted(list(wires),key=lambda x:x.dump()):
       if i.span() is None:
         f.write('W%s\n'%(i.dump()))
   #with open(fn,'w') as f:
