@@ -12,7 +12,9 @@ class LayerDict():
     print l
     for i in self.layers:
       print '\t',i
-      assert not i.overlaps(l)
+      if i.overlaps(l):
+        print "ERROR,",i,"overlaps",l
+        assert False
     assert lid not in self.ids
     self.layers.append(l)
     self.ids.append(lid)

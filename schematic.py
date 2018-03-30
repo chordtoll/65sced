@@ -722,14 +722,18 @@ while running:
           nx,xx,ny,xy=tiles.albb()
           otl=tl
           rendering=True
-          for x in xrange(0,xx,(WIDTH/gw)-3):
-            for y in xrange(0,xy,(HEIGHT/gw)-3):
+          tx=[]
+          ty=[]
+          for x in xrange(0,xx,(WIDTH/gw)):
+            for y in xrange(0,xy,(HEIGHT/gw)):
               tl=(x,y)
               screen.fill((0,0,0))
               render()
               pygame.display.flip()
               clock.tick(60)
               pygame.image.save(screen, "tiles/tile.%04d.%04d.png"%(x,y))
+            os.system('c:\\cygwin64\\bin\\convert tiles/tile.%04d.*.png -append tiles/tile.%04d.all.png"'%(x,x))
+          os.system('c:\\cygwin64\\bin\\convert tiles/tile.*.all.png +append schematic.png"')
           tl=otl
           rendering=False
     if event.type == pygame.MOUSEBUTTONDOWN:
