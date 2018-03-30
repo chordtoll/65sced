@@ -681,7 +681,7 @@ while running:
       if mode in inmodes:
         if event.key==pygame.K_BACKSPACE:
           instr=instr[:-1]
-        elif event.key==pygame.K_RETURN:
+        elif event.unicode in ['\r','\n','\r\n']:
           input_complete(instr,mode)
           instr=""
           mode=MODE_idle
@@ -734,6 +734,7 @@ while running:
               pygame.image.save(screen, "tiles/tile.%04d.%04d.png"%(x,y))
             os.system('c:\\cygwin64\\bin\\convert tiles/tile.%04d.*.png -append tiles/tile.%04d.all.png"'%(x,x))
           os.system('c:\\cygwin64\\bin\\convert tiles/tile.*.all.png +append schematic.png"')
+          os.system('rm tiles/tile*')
           tl=otl
           rendering=False
     if event.type == pygame.MOUSEBUTTONDOWN:
