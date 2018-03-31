@@ -605,6 +605,11 @@ def render():
   if not rendering:
     text=font.render(str(crsq),False,(255,255,255))
     screen.blit(text,(0,0))
+    try:
+      text=font.render(str(tiles.xy2xyg(crsq[0],crsq[1])),False,(255,255,255))
+      screen.blit(text,(0,gw))
+    except:
+      pass
   if mode in inmodes:
     text=font.render(">"+instr,False,(255,255,255))
     screen.blit(text,(0,gw))
