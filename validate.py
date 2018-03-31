@@ -89,7 +89,7 @@ draw.text((0,80),"%3d%% (%4d/%4d)"%(100*len(schnets)/len(netnets),len(schnets),l
 draw.text((0,100),"Pullups progress:",fill=(0,0,0),font=font)
 draw.rectangle((0,122,300*len(schpulls)/len(netpulls),142),(192,255,192))
 draw.text((0,120),"%3d%% (%4d/%4d)"%(100*len(schpulls)/len(netpulls),len(schpulls),len(netpulls)),fill=(0,0,0),font=font)
-draw.text((0,140),"Transistorss progress:",fill=(0,0,0),font=font)
+draw.text((0,140),"Transistors progress:",fill=(0,0,0),font=font)
 draw.rectangle((0,162,300*len(schtransistors)/len(nettransistors),182),(192,255,192))
 draw.text((0,160),"%3d%% (%4d/%4d)"%(100*len(schtransistors)/len(nettransistors),len(schtransistors),len(nettransistors)),fill=(0,0,0),font=font)
 image.save('status.png')
