@@ -607,7 +607,7 @@ def render():
     screen.blit(text,(0,0))
     try:
       text=font.render(str(tiles.xy2xyg(crsq[0],crsq[1])),False,(255,255,255))
-      screen.blit(text,(0,gw))
+      screen.blit(text,(gw*10,0))
     except:
       pass
   if mode in inmodes:
