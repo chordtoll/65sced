@@ -75,6 +75,7 @@ print("Transistor errors:       ",txe)
 print("Nets implemented:       ",'%4d/%4d (%3d%%)'%(len(schnets),len(netnets),100*len(schnets)/len(netnets)))
 print("Pullups implemented:    ",'%4d/%4d (%3d%%)'%(len(schpulls),len(netpulls),100*len(schpulls)/len(netpulls)))
 print("Transistors implemented:",'%4d/%4d (%3d%%)'%(len(schtransistors),len(nettransistors),100*len(schtransistors)/len(nettransistors)))
+print("Random control logic implemented",'%4d/%4d (%3d%%)'%(len(schnets&netrcl),len(netrcl),100*len(schnets&netrcl)/len(netrcl)))
 
 font = PIL.ImageFont.truetype(os.getenv("FONT_PATH")+'/NotoSansMono[wdth,wght].ttf', size=16)
 image = PIL.Image.new('RGB', (300,225), color=(255,255,255))
