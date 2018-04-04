@@ -65,7 +65,7 @@ for i in schpulls-netpulls:
 print "=========  Transistor  errors  ========="
 for i in schtransistors:
   if nettransistors[i][0]!=schtransistors[i][0] or nettransistors[i][1]!=schtransistors[i][1] or nettransistors[i][2]!=schtransistors[i][2]:
-    print "ERROR: incorrect transistor",i,"in file",schtransistors[i][3]
+    print "ERROR: incorrect transistor",i,"in file",schtransistors[i][3],": should be",(nettransistors[i][0],nettransistors[i][1],nettransistors[i][2]),"is",(schtransistors[i][0],schtransistors[i][1],schtransistors[i][2])
     txe+=1
 print "==============  Summary  ==============="
 print "Transistor conflicts:    ",tcon
