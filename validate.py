@@ -21,6 +21,7 @@ schtransistors=dict()
 netpulls=set()
 netnets=set()
 nettransistors=dict()
+netrcl=set((639,821,801,325,1263,1186,1700,1468,874,654,1068,859,437,549,984,59,362,574,1666,921,910,1165,1201,1201,214,129,1015,808,412,1146,206,206,465,465,1308,938,1268,1268,744,1200,1200,725,725,534,1698,1060,1331,140,229,203,48,741,1235,247,1704,1334,379,379,283,438,898,414,1564,41,863,201,846))
 
 tcon=0
 pue=0
@@ -92,4 +93,7 @@ draw.text((0,120),"%3d%% (%4d/%4d)"%(100*len(schpulls)/len(netpulls),len(schpull
 draw.text((0,140),"Transistors progress:",fill=(0,0,0),font=font)
 draw.rectangle((0,162,300*len(schtransistors)/len(nettransistors),182),(192,255,192))
 draw.text((0,160),"%3d%% (%4d/%4d)"%(100*len(schtransistors)/len(nettransistors),len(schtransistors),len(nettransistors)),fill=(0,0,0),font=font)
+draw.text((0,180),"Random logic progress:",fill=(0,0,0),font=font)
+draw.rectangle((0,202,300*len(schnets&netrcl)/len(netrcl),222),(192,255,192))
+draw.text((0,200),"%3d%% (%4d/%4d)"%(100*len(schnets&netrcl)/len(netrcl),len(schnets&netrcl),len(netrcl)),fill=(0,0,0),font=font)
 image.save('status.png')
