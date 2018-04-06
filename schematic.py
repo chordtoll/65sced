@@ -501,7 +501,8 @@ def load():
       w=Wire(n,w1,w2)
       wires.add(w)
       popnp(0,0,w)
-
+  for i in tiles.layers:
+    i.dirty=False
 
 
 load()
@@ -647,7 +648,7 @@ def input_complete(inp,mode):
           i.dirty=True
       else:
         tiles.layerid(span).dirty=True
-    #save()
+    save()
     w1sq=None
     w2sq=None
     return
@@ -795,7 +796,7 @@ while running:
             i.dirty=True
         else:
           tiles.layerid(span).dirty=True
-        #save()
+        save()
         w1sq=None
         w2sq=None
         mode=MODE_idle

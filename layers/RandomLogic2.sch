@@ -1,4 +1,4 @@
-#RandomLogic2,187,2,96,78,24            %name:RandomLogic2, @(187,2) 94x78 #24
+#RandomLogic2,187,2,96,78,24            %name:RandomLogic2, @(187,2) 96x78 #24
 T0,9:U:1541,1
 T1,4:T:2570,2,437,1541,657
 T2,5:U:491,2
