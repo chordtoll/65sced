@@ -648,7 +648,7 @@ def input_complete(inp,mode):
           i.dirty=True
       else:
         tiles.layerid(span).dirty=True
-    save()
+    #save()
     w1sq=None
     w2sq=None
     return
@@ -796,7 +796,7 @@ while running:
             i.dirty=True
         else:
           tiles.layerid(span).dirty=True
-        save()
+        #save()
         w1sq=None
         w2sq=None
         mode=MODE_idle
