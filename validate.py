@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from collections import defaultdict
 import os
 import json
@@ -27,7 +28,7 @@ tcon=0
 pue=0
 txe=0
 
-print "========  Transistor conflicts  ========"
+print("========  Transistor conflicts  ========")
 for fn in os.listdir('layers'):
     with open(os.path.join('layers',fn),'r') as f:
       for line in f:
@@ -39,7 +40,7 @@ for fn in os.listdir('layers'):
             tpar=line.split(':')[2].split(',')
             if int(tpar[0]) in schtransistors:
               if (int(tpar[3]),min(int(tpar[2]),int(tpar[4])),max(int(tpar[2]),int(tpar[4])))!=(schtransistors[int(tpar[0])][0],schtransistors[int(tpar[0])][1],schtransistors[int(tpar[0])][2]):
-                print 'ERROR: conflicting',tpar[0]+':',(int(tpar[3]),min(int(tpar[2]),int(tpar[4])),max(int(tpar[2]),int(tpar[4])),fn),schtransistors[int(tpar[0])]
+                print('ERROR: conflicting',tpar[0]+':',(int(tpar[3]),min(int(tpar[2]),int(tpar[4])),max(int(tpar[2]),int(tpar[4])),fn),schtransistors[int(tpar[0])])
                 tcon+=1
             schtransistors[int(tpar[0])]=(int(tpar[3]),min(int(tpar[2]),int(tpar[4])),max(int(tpar[2]),int(tpar[4])),fn)
             schnets.add(int(tpar[2]))
@@ -57,25 +58,25 @@ with open('segdefs.js','r') as f:
     if i[1]=='+':
       netpulls.add(i[0])
 
-print "===========  Pullup  errors  ==========="
+print("===========  Pullup  errors  ===========")
 for i in schpulls-netpulls:
-  print "ERROR: incorrect pullup on node",i,"in file",pullfiles[i]
+  print("ERROR: incorrect pullup on node",i,"in file",pullfiles[i])
   pue+=1
 
-print "=========  Transistor  errors  ========="
+print("=========  Transistor  errors  =========")
 for i in schtransistors:
   if nettransistors[i][0]!=schtransistors[i][0] or nettransistors[i][1]!=schtransistors[i][1] or nettransistors[i][2]!=schtransistors[i][2]:
-    print "ERROR: incorrect transistor",i,"in file",schtransistors[i][3],": should be",(nettransistors[i][0],nettransistors[i][1],nettransistors[i][2]),"is",(schtransistors[i][0],schtransistors[i][1],schtransistors[i][2])
+    print("ERROR: incorrect transistor",i,"in file",schtransistors[i][3],": should be",(nettransistors[i][0],nettransistors[i][1],nettransistors[i][2]),"is",(schtransistors[i][0],schtransistors[i][1],schtransistors[i][2]))
     txe+=1
-print "==============  Summary  ==============="
-print "Transistor conflicts:    ",tcon
-print "Pullup errors:           ",pue
-print "Transistor errors:       ",txe
-print "Nets implemented:       ",'%4d/%4d (%3d%%)'%(len(schnets),len(netnets),100*len(schnets)/len(netnets))
-print "Pullups implemented:    ",'%4d/%4d (%3d%%)'%(len(schpulls),len(netpulls),100*len(schpulls)/len(netpulls))
-print "Transistors implemented:",'%4d/%4d (%3d%%)'%(len(schtransistors),len(nettransistors),100*len(schtransistors)/len(nettransistors))
-print "Random control logic implemented",'%4d/%4d (%3d%%)'%(len(schnets&netrcl),len(netrcl),100*len(schnets&netrcl)/len(netrcl))
-font = PIL.ImageFont.truetype('cour.ttf', size=20)
+print("==============  Summary  ===============")
+print("Transistor conflicts:    ",tcon)
+print("Pullup errors:           ",pue)
+print("Transistor errors:       ",txe)
+print("Nets implemented:       ",'%4d/%4d (%3d%%)'%(len(schnets),len(netnets),100*len(schnets)/len(netnets)))
+print("Pullups implemented:    ",'%4d/%4d (%3d%%)'%(len(schpulls),len(netpulls),100*len(schpulls)/len(netpulls)))
+print("Transistors implemented:",'%4d/%4d (%3d%%)'%(len(schtransistors),len(nettransistors),100*len(schtransistors)/len(nettransistors)))
+print("Random control logic implemented",'%4d/%4d (%3d%%)'%(len(schnets&netrcl),len(netrcl),100*len(schnets&netrcl)/len(netrcl)))
+font = PIL.ImageFont.truetype('/usr/share/fonts/noto/NotoSansMono-Regular.ttf', size=16)
 image = PIL.Image.new('RGB', (300,225), color=(255,255,255))
 draw = PIL.ImageDraw.Draw(image)
 draw.text((0,0), "Transistor conflicts:",fill=(0,0,0),font=font)

@@ -9,11 +9,11 @@ class LayerDict():
       else:
         lid=0
     l=Layer(name,x1,y1,x2,y2,lid)
-    print l
+    print(l)
     for i in self.layers:
-      print '\t',i
+      print('\t',i)
       if i.overlaps(l):
-        print "ERROR,",i,"overlaps",l
+        print("ERROR,",i,"overlaps",l)
         assert False
     assert lid not in self.ids
     self.layers.append(l)
