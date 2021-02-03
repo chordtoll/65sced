@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import json
 class Node():
   def __init__(self,name,comment,number):
@@ -30,7 +31,7 @@ nodes = {}
 transistors = {}
 
 def findnode(name):
-  for i in nodes.values():
+  for i in list(nodes.values()):
     if name.lower() in [n.lower() for n in i.names]:
       return i.id
 
@@ -110,7 +111,7 @@ with open('transdefs.js') as f:
       continue
     if i[2]>i[3]:
       i[2],i[3]=i[3],i[2]
-    if i[1:4] in transistors.values():
+    if i[1:4] in list(transistors.values()):
       continue
     transistors[int(i[0][1:])]=i[1:4]
     nodes[i[1]].addgate(int(i[0][1:]))
@@ -118,9 +119,9 @@ with open('transdefs.js') as f:
     nodes[i[3]].addcon(int(i[0][1:]))
 
 def genpla():
-  for p in xrange(131):
+  for p in range(131):
     #print p
-    for n in nodes.values():
+    for n in list(nodes.values()):
       for c in n.nc:
         if c[1]=='pla%d'%p:
           #print n
@@ -152,8 +153,8 @@ def genpla():
             elif gatename(i) in ['n603']:
               pp=' & (!n603    )'
             else:
-              print gatename(i)
-          print 'PLA[%3d] = (ir=?=8\'b%s)' %(p,''.join(bitfield[::-1]))+t+cck+pp+'; // %4d:%s'%(n.id,c[0])
+              print(gatename(i))
+          print('PLA[%3d] = (ir=?=8\'b%s)' %(p,''.join(bitfield[::-1]))+t+cck+pp+'; // %4d:%s'%(n.id,c[0]))
           #print '%3d %s %s'%(p,''.join(bitfield[::-1]),tc)+(' !' if pp.rstrip()!='' else '')
           found=True
 '''genpla()
@@ -161,31 +162,31 @@ def genpla():
 '''
 if __name__=="__main__":
   while True:
-    query=raw_input("Node id:")
+    query=input("Node id:")
     if query[0:2]=='.t':
-      print 'Gate: %10s (%4d) \t//%s'%(tnname(int(query[2:]),0),tnid(int(query[2:]),0),tncom(int(query[2:]),0))
-      print 'Node: %10s (%4d) \t//%s'%(tnname(int(query[2:]),1),tnid(int(query[2:]),1),tncom(int(query[2:]),1))
-      print 'Node: %10s (%4d) \t//%s'%(tnname(int(query[2:]),2),tnid(int(query[2:]),2),tncom(int(query[2:]),2))
+      print('Gate: %10s (%4d) \t//%s'%(tnname(int(query[2:]),0),tnid(int(query[2:]),0),tncom(int(query[2:]),0)))
+      print('Node: %10s (%4d) \t//%s'%(tnname(int(query[2:]),1),tnid(int(query[2:]),1),tncom(int(query[2:]),1)))
+      print('Node: %10s (%4d) \t//%s'%(tnname(int(query[2:]),2),tnid(int(query[2:]),2),tncom(int(query[2:]),2)))
       continue
     try:
       nid=int(query)
     except:
       nid=findnode(query)
     node=nodes[nid]
-    print node
-    print "\t"+pathtoground(nid)
-    print "\tTXRS:"
+    print(node)
+    print("\t"+pathtoground(nid))
+    print("\tTXRS:")
     for i in node.con:
       if otcid(i,nid)==558:
-        print "\t\t!%s (!%i) : %i \t//%s"%(gatename(i),gateid(i),i,gatecom(i))
+        print("\t\t!%s (!%i) : %i \t//%s"%(gatename(i),gateid(i),i,gatecom(i)))
       else:
-          print "\t\t%s->%s (%i->%i) : %i"%(gatename(i),otcname(i,nid),gateid(i),otcid(i,nid),i)
-    print "\tGATE:"
+          print("\t\t%s->%s (%i->%i) : %i"%(gatename(i),otcname(i,nid),gateid(i),otcid(i,nid),i))
+    print("\tGATE:")
     for i in node.gate:
       if tnid(i,1)==558:
-        print "\t\t!->%s (!%i) : %i \t//%s"%(tnname(i,2),tnid(i,2),i,tncom(i,1))
+        print("\t\t!->%s (!%i) : %i \t//%s"%(tnname(i,2),tnid(i,2),i,tncom(i,1)))
       elif tnid(i,2)==558:
-        print "\t\t!->%s (!%i) : %i \t//%s"%(tnname(i,1),tnid(i,1),i,tncom(i,1))
+        print("\t\t!->%s (!%i) : %i \t//%s"%(tnname(i,1),tnid(i,1),i,tncom(i,1)))
       else:
-        print "\t\t%s--%s (%i--%i) : %i "%(tnname(i,1),tnname(i,2),tnid(i,1),tnid(i,2),i)
+        print("\t\t%s--%s (%i--%i) : %i "%(tnname(i,1),tnname(i,2),tnid(i,1),tnid(i,2),i))
   ''''''
