@@ -47,13 +47,13 @@ for fn in os.listdir('layers'):
             schnets.add(int(tpar[3]))
             schnets.add(int(tpar[4]))
 
-with open('transdefs.js','r') as f:
+with open('input/transdefs.js','r') as f:
   for i in json.load(f):
     nettransistors[int(i[0][1:])]=(i[1],min(i[2],i[3]),max(i[2],i[3]))
     netnets.add(i[1])
     netnets.add(i[2])
     netnets.add(i[3])
-with open('segdefs.js','r') as f:
+with open('input/segdefs.js','r') as f:
   for i in json.load(f):
     if i[1]=='+':
       netpulls.add(i[0])

@@ -84,7 +84,7 @@ def pathtoground(n):
   p=Path()
   return "~%s"%p.search(n)
 
-with open('nodenames.js') as f:
+with open('input/nodenames.js') as f:
   for line in f:
     if ('//' in line and ':' not in line.split('//')[0]) or ('//' not in line and ':' not in line):
       #print "NO :"
@@ -96,7 +96,7 @@ with open('nodenames.js') as f:
       nodes[number]=Node(name,comment,number)
     else:
       nodes[number].addnc(name,comment)
-with open('segdefs.js') as f:
+with open('input/segdefs.js') as f:
   a=json.load(f)
   for i in a:
     if i[0] not in nodes:
@@ -104,7 +104,7 @@ with open('segdefs.js') as f:
     nodes[i[0]].addpull(i[1])
 
 
-with open('transdefs.js') as f:
+with open('input/transdefs.js') as f:
   a=json.load(f)
   for i in a:
     if i[2]==i[3]:
