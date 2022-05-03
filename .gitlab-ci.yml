@@ -1,0 +1,25 @@
+image: python:latest
+
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+
+cache:
+  paths:
+    - .cache/pip
+    - venv/
+
+before_script:
+  - python --version
+  - pip install virtualenv
+  - virtualenv venv
+  - source venv/bin/activate
+
+validate:
+  script:
+    - mkdir -p /usr/share/fonts/noto/
+    - wget https://github.com/googlefonts/noto-fonts/raw/main/hinted/ttf/NotoSansMono/NotoSansMono-Regular.ttf -O /usr/share/fonts/noto/NotoSansMono-Regular.ttf
+    - pip install -r requirements-validate.txt
+    - python validate.py
+  artifacts:
+    paths:
+      - status.png
