@@ -697,13 +697,25 @@ while running:
                     instr+=event.unicode
             else:
                 if event.key==pygame.K_UP:
-                    tl=(tl[0],tl[1]-3)
+                    if event.mod&pygame.KMOD_SHIFT:
+                        tl=(tl[0],tl[1]-30)
+                    else:
+                        tl=(tl[0],tl[1]-3)
                 if event.key==pygame.K_LEFT:
-                    tl=(tl[0]-3,tl[1])
+                    if event.mod&pygame.KMOD_SHIFT:
+                        tl=(tl[0]-30,tl[1])
+                    else:
+                        tl=(tl[0]-3,tl[1])
                 if event.key==pygame.K_DOWN:
-                    tl=(tl[0],tl[1]+3)
+                    if event.mod&pygame.KMOD_SHIFT:
+                        tl=(tl[0],tl[1]+30)
+                    else:
+                        tl=(tl[0],tl[1]+3)
                 if event.key==pygame.K_RIGHT:
-                    tl=(tl[0]+3,tl[1])
+                    if event.mod&pygame.KMOD_SHIFT:
+                        tl=(tl[0]+30,tl[1])
+                    else:
+                        tl=(tl[0]+3,tl[1])
                 if event.unicode=='s':
                     for i in tiles.layers:
                         i.dirty=True
