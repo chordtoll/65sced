@@ -29,6 +29,9 @@ tcon=0
 pue=0
 txe=0
 
+transistor_layers: defaultdict[int,List[str]] = defaultdict(list)
+duplicate_transistors: Set[int] = set()
+
 print("========  Transistor conflicts  ========")
 for fn in os.listdir('layers'):
     with open(os.path.join('layers',fn),'r') as f:
@@ -39,14 +42,20 @@ for fn in os.listdir('layers'):
             pullfiles[int(line.split(':')[2].split(',')[0])]=fn
           if line.split(':')[1]=='T':
             tpar=line.split(':')[2].split(',')
+            transistor_layers[int(tpar[0])].append(fn)
             if int(tpar[0]) in schtransistors:
               if (int(tpar[3]),min(int(tpar[2]),int(tpar[4])),max(int(tpar[2]),int(tpar[4])))!=(schtransistors[int(tpar[0])][0],schtransistors[int(tpar[0])][1],schtransistors[int(tpar[0])][2]):
                 print('ERROR: conflicting',tpar[0]+':',(int(tpar[3]),min(int(tpar[2]),int(tpar[4])),max(int(tpar[2]),int(tpar[4])),fn),schtransistors[int(tpar[0])])
                 tcon+=1
+            if int(tpar[0]) in schtransistors:
+              duplicate_transistors.add(int(tpar[0]))
             schtransistors[int(tpar[0])]=(int(tpar[3]),min(int(tpar[2]),int(tpar[4])),max(int(tpar[2]),int(tpar[4])),fn)
             schnets.add(int(tpar[2]))
             schnets.add(int(tpar[3]))
             schnets.add(int(tpar[4]))
+
+for i in duplicate_transistors:
+  print(f"Duplicate transistor {i}: {transistor_layers[i]}")
 
 with open('input/transdefs.js','r') as f:
   for i in json.load(f):
