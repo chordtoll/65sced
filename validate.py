@@ -2,6 +2,7 @@
 from collections import defaultdict
 import os
 import json
+from typing import Dict, List, Set, Tuple
 
 import PIL
 import PIL.Image
@@ -13,15 +14,15 @@ PIXEL_ON = 0  # PIL color to use for "on"
 PIXEL_OFF = 255  # PIL color to use for "off"
 
 
-pullfiles=dict()
+pullfiles: Dict[int,str]=dict()
 
-schpulls=set()
-schnets=set()
-schtransistors=dict()
+schpulls: Set[int]=set()
+schnets: Set[int]=set()
+schtransistors: Dict[int,Tuple[int,int,int,str]]=dict()
 
-netpulls=set()
-netnets=set()
-nettransistors=dict()
+netpulls: Set[int]=set()
+netnets: Set[int]=set()
+nettransistors: Dict[int,Tuple[int,int,int]]=dict()
 netrcl=set((639,821,801,325,1263,1186,1700,1468,874,654,1068,859,437,549,984,59,362,574,1666,921,910,1165,1201,1201,214,129,1015,808,412,1146,206,206,465,465,1308,938,1268,1268,744,1200,1200,725,725,534,1698,1060,1331,140,229,203,48,741,1235,247,1704,1334,379,379,283,438,898,414,1564,41,863,201,846))
 
 tcon=0
